@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("io.freefair.gradle:lombok-plugin:8.10.2")
+    }
+}
+
+def printOutput(def output) {
+    return tasks.create("printOutput") {
+        println "#educational_plugin_checker_version 1"
+        def separator = System.lineSeparator()
+        def lines = output.toString().split("(?<=${separator})|(?=${separator})")
+        for (line in lines) {
+            println "#educational_plugin" + line
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'application'
+    apply plugin: 'java'
+    apply plugin: 'io.freefair.lombok'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    }
+
+    sourceSets {
+        main {
+            java.srcDir 'src'
+        }
+        test {
+            java.srcDir 'test'
+        }
+    }
+
+    mainClassName = project.hasProperty("mainClass") ? project.getProperty("mainClass") : ""
+
+    if (project.hasProperty("educationalRun") && "true".equalsIgnoreCase(project.getProperty("educationalRun"))) {
+        def runOutput = new ByteArrayOutputStream()
+        tasks.run.setStandardOutput(runOutput)
+        tasks.run.doLast { printOutput(runOutput) }
+    }
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project(':util') {
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    }
+}
+
+configure(subprojects.findAll { it.name != 'util' }) {
+    dependencies {
+        implementation project(':util').sourceSets.main.output
+        testImplementation project(':util').sourceSets.test.output
+    }
+}

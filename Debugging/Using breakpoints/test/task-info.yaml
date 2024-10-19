@@ -1,0 +1,14 @@
+type: ide
+files:
+  - name: src/Main.java
+    visible: true
+  - name: src/Input.java
+    visible: true
+  - name: src/Calculation.java
+    visible: true
+  - name: src/Calculator.java
+    visible: true
+  - name: src/Operation.java
+    visible: true
+  - name: test/CalculatorTests.java
+    visible: false

@@ -1,0 +1,13 @@
+type: marketplace
+title: IntelliJ debugging
+language: English
+summary: |-
+  This is a Java course.
+  - The course will be most beneficial for all Java developers using IntelliJ.
+  - The course covers core Java debugging features within IntelliJ.
+  - The course is based on the author's personal learnings and experience in Java debugging.
+vendor:
+  name: Jente Sondervorst
+programming_language: Java
+content:
+  - Debugging

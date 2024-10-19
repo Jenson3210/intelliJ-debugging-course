@@ -1,0 +1,8 @@
+content:
+  - get to know the code
+  - enabling debug mode
+  - suspending breakpoints
+  - non-suspending breakpoints
+  - exception breakpoints
+  - pitfalls
+  - test
